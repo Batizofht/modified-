@@ -1,0 +1,17 @@
+.container-chat {
+    height: 100vh;
+  }
+  
+  .chat-icon {
+    font-size: 4rem;
+    color: #6c757d;
+    margin-right: 10px;
+  }
+  
+  .chat-message {
+    background-color: #f8f9fa;
+    padding: 40px;
+   
+    border-radius: 5px;
+  }
+  

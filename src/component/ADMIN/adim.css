@@ -1,0 +1,12 @@
+.thegaform{
+    margin-top: 20px;
+
+}
+.thegaform input{
+    color: blue;
+    border-radius: 100px;
+}
+.thegaform input:focus{
+    outline: none;
+    box-shadow: none;
+}
