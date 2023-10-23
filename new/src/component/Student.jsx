@@ -8,12 +8,35 @@ import { AuthContext } from '../ahook/Auth';
 
 const Student = () => {
   const [studeid, setStudi] = useState("");
- const {logged} = useContext(AuthContext)
+  const [passwords,SetPasswords] = useState('')
+  const [showPassField,SetShowPassField] = useState(false);
+  const [showText,SetShowText] = useState(false)
+  const {logged} = useContext(AuthContext)
   const navigate = useNavigate();
+
+  function togglePassword (e) {
+    e.preventDefault()
+    SetShowText(prevShowPassword => !prevShowPassword);
+    
+    var inputField = document.getElementsByClassName("passInput")[0]
+    var inputbutton = document.getElementsByClassName("showedPass")[0]
+
+    if(inputField.type === "password") {
+        inputbutton.textContent = "Hide"
+    } else {
+        inputbutton.textContent = "Show"    
+    }
+}
+
   const changezabaye = (e) =>{
 
    setStudi(e.target.value) ;
   }
+
+  const apassword = (e) => {
+    SetPasswords(e.target.value)
+  }
+
   const contiue = async(e) =>{
     e.preventDefault();
     // console.log(studeid);
@@ -26,6 +49,7 @@ const Student = () => {
       {
         studeid: studeid,
         what: "POST",
+        password:null,
       }
       ,
       {
@@ -35,7 +59,7 @@ const Student = () => {
     })
 
       // console.log(response.data)
-      if(typeof response.data==='number'){
+      if(typeof response.data=== 'number'){
         toast.success("LOGED IN SUCCESSFULL");
         
      
@@ -46,13 +70,63 @@ const Student = () => {
        const nownow = (response.data);
         logged(nownow);
 
-      }else{
-        toast.error("USER DOES'NT EXISTS. PLEASE MAKE SURE YOU ARE RESGISTERED AS A SAINT IGNATIUS HIGH SCHOOL");
       }
+      else if (typeof response.data === "boolean") {
+        e.preventDefault();
+        console.log(response.data)
+        toast.info("You already have a password. Please Enter Your Password")
+        SetShowPassField(true)
+      }
+      else{
+        toast.error("USER DOESN'T EXIST. PLEASE MAKE SURE YOU ARE REGISTERED AS A SIHS STUDENT");
+      }
+      console.log(response.data)
     }catch(error){
       toast.error(error);
       console.log(error)
     }
+    }
+  }
+  const nowcontinue = async (e) => {
+    try{
+      const response =
+      await axios.post("http://localhost:8080/project/phpbackened/controll.php", 
+      {
+        studeid: studeid,
+        what: "POST",
+        ispassword:"yes",
+        password:passwords,
+      }
+      ,
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+    })
+
+      // console.log(response.data)
+      if(typeof response.data=== 'number'){
+        toast.success("LOGED IN SUCCESSFULL");
+        
+     
+        
+        localStorage.setItem("users", JSON.stringify(response.data));
+      
+        location.href="/"
+       const nownow = (response.data);
+        logged(nownow);
+
+      }
+      else if (typeof response.data === "string") {
+        e.preventDefault();
+        toast.error("Double-check your password.")
+      }
+      else{
+        toast.error("USER DOESN'T EXIST. PLEASE MAKE SURE YOU ARE REGISTERED AS A SIHS STUDENT");
+      }
+    }catch(error){
+      toast.error(error);
+      console.log(error)
     }
   }
   const text = "Welcome Student. Continue with your ID";
@@ -96,14 +170,19 @@ const Student = () => {
                      <p className='fw-bold text-primary'>STUDENT ID</p>
                 </div>
   </div>
-    <div className="d-flex   justify-content-center ">
+    <div className="d-flex  flex-column justify-content-center align-items-center">
             
          
     
   <input onChange={changezabaye}  type="text" 
-  value={studeid} className="form-control ifomo" placeholder="If you are a student write in your ID" 
+  value={studeid} className="form-control ifomo my-2" placeholder="If you are a student write in your ID" 
   aria-label="Recipient's username" aria-describedby="basic-addon2" />
- 
+ <div style={{opacity: showPassField ? '1': '0' , position: showPassField ? 'relative' : 'absolute', transition: 'opacity 0.5s ease' , bottom: showPassField ? ' ' : '-10em'}}
+   className="d-flex  flex-column justify-content-center align-items-center w-100">
+ <input type={showText ? "text" : "password"} placeholder='Enter your password' className='form-control ifomo my-2 passInput' 
+ onChange={apassword}  value={passwords} aria-label="Student's password"/>
+    <button className="showedPass" onClick={togglePassword}>Show</button>
+</div>
  </div> 
 <div className="d-flex   justify-content-center ">
             
@@ -112,7 +191,7 @@ const Student = () => {
         
         
   <div className='text-center'>
-                 <a className='btn btn-primary my-4 rounded-pill py-2' onClick={contiue} >CONTINUE</a>
+                 <a className='btn btn-primary my-4 rounded-pill py-2' onClick={ showPassField ? nowcontinue : contiue} >{showPassField ? 'LOGIN' : 'CONTINUE'}</a>
             </div>
 </div> 
 

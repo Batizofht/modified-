@@ -22,6 +22,7 @@ import Nothing from './user/Nothing'
 import Class from './user/Class'
 import Exam from './user/Exam'
 import Chat from './user/Chat'
+import DOS from './user/DOS'
 import Admin from './component/Admin'
 import Profile from './user/Profile'
 import Adminslogin from './component/Admins'
@@ -110,6 +111,10 @@ const userrouter = createBrowserRouter([
         path : "settings",
         element: <Settings />
       },
+      {
+        path:'ratings',
+        element: <DOS />
+      }
       // Add more routes for other user-specific components if needed
     ]
   },

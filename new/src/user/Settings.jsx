@@ -217,6 +217,7 @@ function toggleNewPassword (e) {
                     <button className="showP-2" onClick={toggleOgPassword}>Show</button>
                     </span>
                 </div>
+               
                     <input type="text" name="id" value={user.student_id} style={{opacity: '0', position: 'absolute', right:'1em', width: '10px'}} 
                     readOnly={true} />
                

@@ -54,11 +54,6 @@ const Home = () => {
     
  </div>
  <div className="d-flex   justify-content-center">
-            
-         
-       
-    
-         
         <div>
           </div>        
         
@@ -67,13 +62,8 @@ const Home = () => {
 
      </div>
      <div className="d-flex   justify-content-center">
-            
-         
-       
-    
-            
-      <div className='text-center'>
-                     <a className='btn btn-primary my-4 rounded-pill py-2' href=''>CONTINUE</a>
+            <div className='text-center'>
+                     <a className='btn btn-primary my-4 rounded-pill py-2'>CONTINUE</a>
                 </div>
      </div>
 

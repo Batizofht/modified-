@@ -39,6 +39,8 @@ const logout = ()=>{
             <li><NavLink activeClassName="active"  className="itr" to="/SittingPlan">Sitting plan</NavLink></li>
             <li><NavLink activeClassName="active"  className="itr" to="/Timetables">Timetables</NavLink></li>
             <li><NavLink activeClassName="active" className="itr" to="/All">All students</NavLink></li>
+            <li><NavLink activeClassName="active" className="itr" to="/ratings">Teacher Ratings</NavLink></li>
+            
             
            
          
@@ -209,7 +211,7 @@ const logout = ()=>{
               Chat</NavLink></li>
             <li><NavLink activeClassName="active"  className="itr" to="/Timetables">
             <i className="bi bi-table"></i>
-              Table</NavLink></li>
+          Timetables</NavLink></li>
             <li style={{marginRight:40}}><NavLink activeClassName="active" className="itr" to="/Plan">
             <i className="bi bi-bullseye"></i>
               Plan</NavLink></li>
